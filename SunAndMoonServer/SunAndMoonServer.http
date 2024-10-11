@@ -1,0 +1,10 @@
+@SunAndMoonServer_HostAddress = https://localhost:7240
+
+GET {{SunAndMoonServer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+GET {{SunAndMoonServer_HostAddress}}/weatherforecast
+
+###
