@@ -43,6 +43,37 @@ namespace SunAndMoonServer.Controllers
             return Ok(await _context.Books.ToListAsync());
         }
 
+        [HttpPut]
+        public async Task<ActionResult<List<Book>>> UpdateBookInformation(Book newBook)
+        {
+            var dbBook = await _context.Books.FindAsync(newBook.Id);
+            if (dbBook is null)
+                return NotFound("The book could not be found");
+
+            dbBook.Title = newBook.Title;
+            dbBook.Description = newBook.Description;
+            dbBook.Author = newBook.Author;
+            dbBook.ChapterCount = newBook.ChapterCount;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(await _context.Books.ToListAsync());
+
+        }
+
+        [HttpPut("chapterCount/")]
+        public async Task<ActionResult<List<Book>>> UpdateBookChapterCount(Book newCount)
+        {
+            var dbBook = await _context.Books.FindAsync(newCount.Id);
+            if (dbBook is null)
+                return NotFound("the book could not be found");
+
+            dbBook.ChapterCount++;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(await _context.Books.ToListAsync());
+        }
     }
         //public IActionResult Index()
         //{
