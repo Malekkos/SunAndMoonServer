@@ -66,10 +66,23 @@ namespace SunAndMoonServer.Controllers
         {
             var dbBook = await _context.Books.FindAsync(newCount.Id);
             if (dbBook is null)
-                return NotFound("the book could not be found");
+                return NotFound("The book could not be found");
 
             dbBook.ChapterCount++;
 
+            await _context.SaveChangesAsync();
+
+            return Ok(await _context.Books.ToListAsync());
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult<List<Book>>> DeleteBook(long id)
+        {
+            var book = await _context.Books.FindAsync(id);
+            if (book is null)
+                return NotFound("The book could not be found");
+
+            _context.Books.Remove(book);
             await _context.SaveChangesAsync();
 
             return Ok(await _context.Books.ToListAsync());
