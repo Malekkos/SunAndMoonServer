@@ -25,7 +25,7 @@ namespace SunAndMoonServer.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<Book>>> GetBook(long id)
+        public async Task<ActionResult<Book>> GetBook(long id)
         {
             var book = await _context.Books.FindAsync(id);
             if (book is null)
@@ -33,6 +33,16 @@ namespace SunAndMoonServer.Controllers
 
             return Ok(book);
         }
+
+        [HttpPost]
+        public async Task<ActionResult<List<Book>>> CreateBook(Book book)
+        {
+            _context.Books.Add(book);
+            await _context.SaveChangesAsync();
+
+            return Ok(await _context.Books.ToListAsync());
+        }
+
     }
         //public IActionResult Index()
         //{
