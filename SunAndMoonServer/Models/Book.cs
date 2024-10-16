@@ -8,6 +8,7 @@ namespace SunAndMoonServer.Models
         public long Id { get; set; }
         [Required(ErrorMessage = "Title is required")]
         [StringLength(50, ErrorMessage = "Title cannot exceed 50 characters")]
+        [MinLength(5, ErrorMessage = "Title should not be shorter than 5 characters")]
         public string Title { get; set; }
         public int? ChapterCount { get; set; }
         // if null, auto complete to 0. Can be included as a not on the creation part
@@ -16,6 +17,7 @@ namespace SunAndMoonServer.Models
         [Required(ErrorMessage = "An author/alias is required")]
         [StringLength(50, ErrorMessage = "Authors name/alias cannot exceed 50 characters")]
         public string Author { get; set; }
+        [StringLength(500, ErrorMessage = "Description should not exceed 500 characters")]
         public string? Description { get; set; }
         // if null, can replace standard description with text along the lines of "no description provided"
     }
